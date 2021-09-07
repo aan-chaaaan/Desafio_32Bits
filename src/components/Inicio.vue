@@ -1,6 +1,6 @@
 <template>
   <div id="App">
-    <h1>31bits</h1>
+    <h1>32bits</h1>
     <h2>Juegos de pc y consolas</h2>
     <ul>
       <li><router-link to="/">inicio</router-link></li>
@@ -14,11 +14,6 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  data() {
-    return {
-      searchCode: "",
-    };
-  },
   computed: {
     ...mapState({}),
   },
