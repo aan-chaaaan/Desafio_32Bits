@@ -12,7 +12,7 @@
     </ul>
     <hr>
     <h1>Cantidad de juegos totales y de stock total</h1>
-    <p>Juegos totales: {{productosEnStock.length}}</p>
+    <p>Juegos totales: {{$store.state.productos.length}}</p>
     <p> Stock total: {{$store.getters.stockTotal}}</p>
     <hr>
     <h1>Listado de juegos</h1>
@@ -23,7 +23,7 @@
         <th>Stock</th>
         <th>Precio</th>
       </tr>
-      <tr v-for="(producto, $index) in productosEnStock" :key="$index" :style="{ 'background-color': producto.color }">
+      <tr v-for="(producto, $index) in $store.state.productos" :key="$index" :style="{ 'background-color': producto.color }">
         <td>{{producto.codigo}}</td>
         <td>{{producto.nombre}}</td>
         <td>{{producto.stock}}</td>
@@ -35,15 +35,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  data() {
-    return {
-      buscarCodigo: "",
-    }
-  },
   computed: {
-    productosEnStock() {
-      return this.$store.getters.productosEnStock;
-    },
     ...mapState({
       productoDisponibleCodigo() {
       return this.$store.getters.productoDisponibleCodigo(this.buscarCodigo);

@@ -5,7 +5,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    disponible: true,
+    data() {
+      return {
+        buscarCodigo: "",
+      }
+    },
     productos: [
       {
         codigo: "0001",
@@ -65,15 +69,9 @@ const store = new Vuex.Store({
         return accumulator;
       }, 0);
     },
-
-    productosEnStock: (state) => {
-      return state.productos.filter((producto) => {
-        return producto.stock > 0;
-      });
-    },
     
-    productoDisponibleCodigo: (state, getters) => (codigo)=>{
-      return getters.productosEnStock.filter((producto)=>{
+    productoDisponibleCodigo: (state) => (codigo)=>{
+      return state.productos.filter((producto)=>{
       return producto.codigo == codigo
       })
     }
