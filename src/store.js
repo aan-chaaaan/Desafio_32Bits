@@ -5,14 +5,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    data() {
-      return {
-        buscarCodigo: "",
-      }
-    },
     productos: [
       {
-        codigo: "0001",
+        codigo: "1",
         nombre: "Sekiro",
         stock: 100,
         precio: 30000,
@@ -20,7 +15,7 @@ const store = new Vuex.Store({
         destacado: true,
       },
       {
-        codigo: "0002",
+        codigo: "2",
         nombre: "Fifa 21",
         stock: 100,
         precio: 25000,
@@ -28,7 +23,7 @@ const store = new Vuex.Store({
         destacado: false,
       },
       {
-        codigo: "0003",
+        codigo: "3",
         nombre: "Gears Of War 4",
         stock: 100,
         precio: 15000,
@@ -36,7 +31,7 @@ const store = new Vuex.Store({
         destacado: true,
       },
       {
-        codigo: "0004",
+        codigo: "4",
         nombre: "Mario Tennis Aces",
         stock: 100,
         precio: 35000,
@@ -44,7 +39,7 @@ const store = new Vuex.Store({
         destacado: false,
       },
       {
-        codigo: "0005",
+        codigo: "5",
         nombre: "Bloodborne",
         stock: 100,
         precio: 30000,
@@ -52,7 +47,7 @@ const store = new Vuex.Store({
         destacado: false,
       },
       {
-        codigo: "0006",
+        codigo: "6",
         nombre: "Forza Horizon 4",
         stock: 100,
         precio: 20000,
