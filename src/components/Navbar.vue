@@ -1,5 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">32Bit Store</a>
     <button
       class="navbar-toggler"
@@ -15,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <router-link to="/inicio" class="nav-link">Inicio</router-link>
+          <router-link to="/" class="nav-link">Inicio</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/busquedas" class="nav-link">Búsquedas</router-link>
@@ -29,14 +30,13 @@
       </ul>
     </div>
   </nav>
+    </div>
 </template>
 <script>
-import { mapState } from "vuex";
 export default {
-  computed: {
-    ...mapState({}),
+  name: "Navbar",
+  props: {
+    juegos: { type: String, require: true },
   },
 };
 </script>
-<style scoped>
-</style>

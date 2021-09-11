@@ -69,10 +69,21 @@ const store = new Vuex.Store({
       return state.productos.filter((producto)=>{
       return producto.codigo == codigo
       })
-    }
+    },
+    productosConStock: (state) => {
+      return state.productos.filter((producto) => {
+        return producto.stock > 0;
+      });
   },
-  // mutations: {},
-  // actions: {},
+//   mutations: {
+   
+// },
+  },
+  actions: {
+    productosConStock({ commit }) {
+      commit("productosConStock");
+    },
+  },
 });
 
 export default store;

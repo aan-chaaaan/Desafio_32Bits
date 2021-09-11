@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Inicio = () => import('./components/Inicio')
-const Busquedas = () => import('./components/Busquedas')
-const Ventas = () => import('./components/Ventas')
-const Total = () => import('./components/Total')
+const Inicio = () => import('./pages/Inicio')
+const Busquedas = () => import('./pages/Busquedas')
+const Ventas = () => import('./pages/Ventas')
+const Total = () => import('./pages/Total')
 
 Vue.use(Router)
 
