@@ -1,20 +1,22 @@
 <template>
   <div class="m-4 align-items-center text-center">
     <Navbar></Navbar>
-    <section class="pt-5 pb-3">
-      <h2 class="text-center">Búsqueda de productos disponibles</h2>
-      <input class="input"
+      <section>
+      <h3>Filtro</h3>
+      <input
         type="text"
-        placeholder="Escribe un codigo para encontrar tu juego"
-        v-model="buscarCodigo"
+        placeholder="Escriba el nombre del producto"
+        :value="$store.state.busqueda"
+        @input="
+          $store.dispatch('setBusqueda', $event.target.value)
+        "
       />
-      <ul v-if="productoDisponibleCodigo.length > 0">
-        <li v-for="(producto, index) in productoDisponibleCodigo" :key="index">
-          <label>{{producto.nombre}}</label>
-        </li>
-      </ul>
-      <ul class="text-center" v-else>
-        <p>...nada aún :)</p>
+      <ListaJuegos
+        v-if="$store.getters.juegosSegunBusqueda.length > 0"
+        :juegos="$store.getters.juegosSegunBusqueda"
+      />
+      <ul v-else>
+        <li>Escribe algo para buscar</li>
       </ul>
     </section>
     <section class="pt-3 pb-3">
@@ -25,7 +27,26 @@
       <hr />
     </section>
     <section class="pt-3 pb-3 container">
-     <ListaJuegos :juegos="$store.state.juegos"></ListaJuegos>
+     <h2>Listado de juegos</h2>
+    <table class="text-center justify-content-center table ">
+      <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Stock</th>
+        <th>Precio</th>
+      </tr>
+      <tr
+        v-for="(producto, $index) in $store.state.productos"
+        :key="$index"
+        :style="{ 'background-color': producto.color }"
+      >
+        <td>{{ producto.codigo }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.precio }}</td>
+      </tr>
+      
+    </table>
     </section>
   </div>   
 </template>

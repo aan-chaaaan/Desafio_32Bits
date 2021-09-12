@@ -3,8 +3,14 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+const delay = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
 const store = new Vuex.Store({
   state: {
+    busqueda: "",
     productos: [
       {
         codigo: "1",
@@ -55,33 +61,80 @@ const store = new Vuex.Store({
         destacado: true,
       },
     ],
+    ventas: [],
   },
   getters: {
-
-    stockTotal(state){
+    stockTotal(state) {
       return state.productos.reduce((accumulator, producto) => {
-        accumulator = accumulator + producto.stock
+        accumulator = accumulator + producto.stock;
         return accumulator;
       }, 0);
     },
-    
-    productoDisponibleCodigo: (state) => (codigo)=>{
-      return state.productos.filter((producto)=>{
-      return producto.codigo == codigo
-      })
+    juegosSegunBusqueda(state) {
+      if (state.busqueda === "") {
+        return [];
+      } else {
+        return state.productos.filter((producto) =>
+          producto.nombre.toLowerCase().includes(state.busqueda.toLowerCase())
+        );
+      }
     },
-    productosConStock: (state) => {
-      return state.productos.filter((producto) => {
-        return producto.stock > 0;
-      });
+    juegosConStock(state) {
+      return state.productos.filter((producto) => producto.stock > 0);
+    },
+    totalJuegosConStock(state) {
+      return state.productos.filter((producto) => producto.stock > 0).length;
+    },
+    montoTotalDeVentas(state) {
+      return state.ventas.reduce((accumulator, venta) => {
+        accumulator += venta.precio;
+        return accumulator;
+      }, 0);
+    },
   },
-//   mutations: {
-   
-// },
+  mutations: {
+    SET_BUSQUEDA(state, nuevaBusqueda) {
+      state.busqueda = nuevaBusqueda;
+    },
+    RESTAR_STOCK(state, indiceJuego) {
+      state.productos[indiceJuego].stock -= 1;
+    },
+    AGREGAR_STOCK(state, indiceJuego) {
+      state.productos[indiceJuego].stock += 1;
+    },
+    AGREGAR_VENTA(state, venta) {
+      state.ventas.push(venta);
+    },
   },
+
   actions: {
-    productosConStock({ commit }) {
-      commit("productosConStock");
+    setBusqueda(context, nuevaBusqueda) {
+      if (typeof nuevaBusqueda === "string") {
+        context.commit("SET_BUSQUEDA", nuevaBusqueda);
+      } else {
+        console.warn(
+          `nuevaBusqueda debiese de ser de tipo string y recibir un tipo ${typeof nuevaBusqueda}`
+        );
+      }
+    },
+    async venderJuego(context, producto) {
+      await context.dispatch("procesarLaVenta", producto);
+      await context.dispatch("registrarLaVenta", producto);
+    },
+    async procesarLaVenta(context, juegoAVender) {
+      await delay(2000);
+      const indiceJuego = context.state.productos.findIndex(
+        (producto) => producto.codigo === juegoAVender.codigo
+      );
+      if (context.state.productos[indiceJuego].stock > 0) {
+        context.commit("RESTAR_STOCK", indiceJuego);
+      }
+    },
+    async registrarLaVenta(context, producto) {
+      await delay(1000);
+      // eslint-disable-next-line no-unused-vars
+      const { stock, ...datosJuego } = producto;
+      context.commit("AGREGAR_VENTA", datosJuego);
     },
   },
 });
