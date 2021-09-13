@@ -1,10 +1,9 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <section class="mt-5 text-center">
-      <h3 class="pt-3">Cantidad de juegos con stock</h3>
+    <section class="mt-5 p-3">
+      <h3 class="pt-3">Cantidad de juegos con stock: {{ $store.getters.totalJuegosConStock }}</h3>
       <Listajuegos :juegos="$store.getters.juegosConStock" />
-      <p>Total: {{ $store.getters.totalJuegosConStock }}</p>
     </section>
     <section >
       <h3 class="text-center">Venta de juegos</h3>

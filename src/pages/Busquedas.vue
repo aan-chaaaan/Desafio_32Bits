@@ -53,24 +53,9 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import ListaJuegos from "../components/ListaJuegos.vue";
-import { mapState } from "vuex";
-
 export default {
   components: { ListaJuegos, Navbar },
-  data(){
-    return {
-      buscarCodigo: "",
-    };
-  },
-  computed: {
-    ...mapState({
-      productoDisponibleCodigo() {
-        return this.$store.getters.productoDisponibleCodigo(this.buscarCodigo);
-      },
-    }),
-  },
 };
-  
 </script>
 <style scoped>
 
